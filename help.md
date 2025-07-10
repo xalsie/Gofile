@@ -1,7 +1,9 @@
 # API for Gofile.com
 
 Upload files to Gofile.com and get a link to the uploaded file.
+
 > POST - https://api.gofile.io/contents/createfolder
+
 ```
 {
     headers: {
@@ -14,7 +16,9 @@ Upload files to Gofile.com and get a link to the uploaded file.
     })
 }
 ```
+
 > response:
+
 ```
 {
     "status": "ok",
@@ -30,7 +34,9 @@ Upload files to Gofile.com and get a link to the uploaded file.
     }
 }
 ```
+
 > POST - https://upload.gofile.io/uploadfile
+
 ```
 {
     headers: {
@@ -43,7 +49,9 @@ Upload files to Gofile.com and get a link to the uploaded file.
     })
 }
 ```
+
 > response:
+
 ```
 {
     "data": {

@@ -4,13 +4,11 @@ Une API TypeScript pour uploader des fichiers sur gofile.io, conçue avec les pr
 
 ## 🚀 Fonctionnalités
 
-- ✅ Upload de fichiers vers gofile.io
-- ✅ Création automatique de dossiers
-- ✅ Support TypeScript complet
-- ✅ Architecture propre et modulaire
-- ✅ Gestion d'erreurs robuste
-- ✅ Zéro dépendance externe
-- ✅ Compatible Node.js et navigateurs modernes
+- Upload de fichiers vers gofile.io
+- Support TypeScript complet
+- Architecture propre et modulaire
+- Gestion d'erreurs robuste
+- Zéro dépendance externe
 
 ## 📦 Installation
 
@@ -22,7 +20,7 @@ npm run build
 ## 🛠️ Configuration
 
 ```typescript
-import { GofileAPI } from './dist/index.js';
+import { GofileAPI } from "./dist/index.js";
 
 const api = new GofileAPI({});
 ```
@@ -32,35 +30,28 @@ const api = new GofileAPI({});
 ### Upload simple d'un fichier
 
 ```typescript
-import { GofileAPI } from './dist/index.js';
-import { readFile } from 'fs/promises';
+import { GofileAPI } from "./dist/index.js";
+import { readFile } from "fs/promises";
 
 const api = new GofileAPI({});
 
 // Lire un fichier depuis le système de fichiers
-const fileBuffer = await readFile('./path/to/your/file.jpg');
+const fileBuffer = await readFile("./path/to/your/file.jpg");
 
 // Upload du fichier
-const result = await api.uploadFile(
-  fileBuffer, 
-  'my-file.jpg', 
-  'YOUR_TOKEN'
-);
+const result = await api.uploadFile(fileBuffer, "my-file.jpg", "YOUR_TOKEN");
 
 if (result.success) {
-  console.log('Lien de téléchargement:', result.downloadPage);
+    console.log("Lien de téléchargement:", result.downloadPage);
 } else {
-  console.error('Erreur:', result.error);
+    console.error("Erreur:", result.error);
 }
 ```
 
 ### Upload vers un dossier existant
 
 ```typescript
-const result = await api.uploadFileToFolder(
-  fileBuffer,
-  'my-file.jpg'
-);
+const result = await api.uploadFileToFolder(fileBuffer, "my-file.jpg");
 ```
 
 ## 🏗️ Architecture
