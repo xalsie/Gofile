@@ -31,7 +31,9 @@
         "dev": "tsc --watch",
         "test": "npm run build && node dist/tests/test.js",
         "lint": "eslint .",
-        "prettier": "prettier . --write"
+        "prettier": "prettier . --write",
+        "verify-package": "node scripts/verify-package.js",
+        "prepublishOnly": "npm run build && npm run verify-package"
     },
     "devDependencies": {
         "@eslint/js": "^9.30.1",
