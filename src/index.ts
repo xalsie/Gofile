@@ -7,6 +7,7 @@ import type {
     FileToUpload,
     MultipleUploadResult,
     AuthenticatedConfig,
+    UploadProgressResult,
 } from "./types/index.js";
 
 /**
@@ -75,6 +76,27 @@ export class GofileAPI {
             isPublic,
         );
     }
+
+    /**
+     * Upload files with progress events and automatic authentication
+     * @param files - Array of files to upload with their names
+     * @param isPublic - Whether the folder should be public (default: true)
+     * @returns Upload progress handler with events
+     */
+    async uploadFiles(
+        files: FileToUpload[],
+        isPublic: boolean = true,
+    ): Promise<UploadProgressResult> {
+        console.log("Authenticating for files upload with progress...");
+        const authConfig = await this.authenticate();
+
+        return this.fileUploadService.uploadFiles(
+            files,
+            authConfig.token,
+            authConfig.rootFolder,
+            isPublic,
+        );
+    }
 }
 
 export type {
@@ -83,4 +105,5 @@ export type {
     FileToUpload,
     MultipleUploadResult,
     AuthenticatedConfig,
+    UploadProgressResult,
 } from "./types/index.js";

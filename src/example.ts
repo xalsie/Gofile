@@ -1,9 +1,8 @@
 import { GofileAPI, type FileToUpload } from "./index.js";
-import { readFile } from "fs/promises";
 
-async function multipleUploadExample() {
-    console.log("- Gofile Multiple Upload Example");
-    console.log("====================================\n");
+async function progressExample() {
+    console.log("Gofile Upload with Progress Example");
+    console.log("=====================================\n");
 
     const api = new GofileAPI({});
 
@@ -11,19 +10,25 @@ async function multipleUploadExample() {
         const files: FileToUpload[] = [
             {
                 file: Buffer.from("Hello, this is file 1 content"),
-                fileName: "test-file-1.txt",
+                fileName: "progress-test-1.txt",
             },
             {
                 file: Buffer.from("Hello, this is file 2 content"),
-                fileName: "test-file-2.txt",
+                fileName: "progress-test-2.txt",
             },
             {
                 file: Buffer.from("Hello, this is file 3 content"),
-                fileName: "test-file-3.txt",
+                fileName: "progress-test-3.txt",
+            },
+            {
+                file: Buffer.from("Hello, this is file 4 content"),
+                fileName: "progress-test-4.txt",
             },
         ];
 
-        console.log(`- Uploading ${files.length} files...`);
+        console.log(
+            `Uploading ${files.length} files with progress tracking...`,
+        );
         console.log("Files to upload:");
         files.forEach((file, index) => {
             console.log(
@@ -32,43 +37,48 @@ async function multipleUploadExample() {
         });
         console.log();
 
-        console.log("- Method 1: Sequential upload");
-        const sequentialResult = await api.uploadMultipleFiles(files);
+        const uploadHandler = await api.uploadFiles(files);
 
-        console.log("Sequential upload result:", {
-            success: sequentialResult.success,
-            totalFiles: files.length,
-            successfulUploads: sequentialResult.results.filter((r) => r.success)
-                .length,
-            folderId: sequentialResult.folderId,
-            downloadPage: sequentialResult.downloadPage,
-            error: sequentialResult.error,
-        });
-
-        if (sequentialResult.success) {
-            console.log("- All files uploaded successfully!");
-            console.log(
-                "- Folder download page:",
-                sequentialResult.downloadPage,
-            );
-            console.log("- Individual file results:");
-            sequentialResult.results.forEach((result, index) => {
-                if (result.success) {
+        uploadHandler.on("uploadProgress", (progress) => {
+            if (!progress.completed) {
+                console.log(
+                    `Starting upload: ${progress.fileName} (${progress.currentFile}/${progress.totalFiles})`,
+                );
+            } else {
+                if (progress.success) {
                     console.log(
-                        `   ${files[index].fileName}: ${result.downloadPage}`,
+                        `Completed: ${progress.fileName} -> ${progress.downloadPage}`,
                     );
                 } else {
-                    console.log(`   ${files[index].fileName}: ${result.error}`);
+                    console.log(
+                        `Failed: ${progress.fileName} -> ${progress.error}`,
+                    );
                 }
-            });
-        } else {
-            console.error("Some uploads failed:", sequentialResult.error);
-        }
+            }
+        });
 
-        console.log("\n" + "=".repeat(50) + "\n");
+        uploadHandler.on("done", (results) => {
+            console.log("\nUpload process completed!");
+            console.log("Final results:", {
+                success: results.success,
+                totalFiles: files.length,
+                successfulUploads: results.results.filter((r) => r.success)
+                    .length,
+                folderId: results.folderId,
+                downloadPage: results.downloadPage,
+                error: results.error,
+            });
+
+            if (results.success) {
+                console.log("All files uploaded successfully!");
+                console.log("Folder download page:", results.downloadPage);
+            } else {
+                console.error("Some uploads failed:", results.error);
+            }
+        });
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
-multipleUploadExample().catch(console.error);
+progressExample().catch(console.error);

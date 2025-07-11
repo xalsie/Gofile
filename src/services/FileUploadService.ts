@@ -3,7 +3,9 @@ import type {
     UploadResult,
     FileToUpload,
     MultipleUploadResult,
+    UploadProgressResult,
 } from "../types/index.js";
+import { UploadProgressHandler } from "./UploadProgressHandler.js";
 
 export class FileUploadService {
     constructor(private readonly repository: IGofileRepository) {}
@@ -114,5 +116,23 @@ export class FileUploadService {
                         : "Unknown error occurred",
             };
         }
+    }
+
+    /**
+     * Upload files with progress events (replaces uploadMultipleFiles)
+     */
+    uploadFiles(
+        files: FileToUpload[],
+        token: string,
+        parentFolderId: string,
+        isPublic: boolean = true,
+    ): UploadProgressResult {
+        return new UploadProgressHandler(
+            this.repository,
+            files,
+            token,
+            parentFolderId,
+            isPublic,
+        );
     }
 }

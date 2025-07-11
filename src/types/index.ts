@@ -63,12 +63,31 @@ export interface FileToUpload {
     fileName: string;
 }
 
+export interface UploadProgress {
+    currentFile: number;
+    totalFiles: number;
+    fileName: string;
+    completed: boolean;
+    success?: boolean;
+    downloadPage?: string;
+    fileId?: string;
+    error?: string;
+}
+
 export interface MultipleUploadResult {
     success: boolean;
     results: UploadResult[];
     folderId?: string;
     downloadPage?: string;
     error?: string;
+}
+
+export interface UploadProgressResult {
+    on(
+        event: "uploadProgress",
+        listener: (progress: UploadProgress) => void,
+    ): void;
+    on(event: "done", listener: (results: MultipleUploadResult) => void): void;
 }
 
 export interface AccountResponse {
