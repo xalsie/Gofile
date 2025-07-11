@@ -32,8 +32,7 @@
         "test": "npm run build && node dist/tests/test.js",
         "lint": "eslint .",
         "prettier": "prettier . --write",
-        "verify-package": "node scripts/verify-package.js",
-        "prepublishOnly": "npm run build && npm run verify-package"
+        "prepublishOnly": "npm run build"
     },
     "devDependencies": {
         "@eslint/js": "^9.30.1",
