@@ -1,7 +1,7 @@
 {
     "name": "gofile",
     "version": "1.0.1",
-    "description": "Simple API for uploading files to Gofile.com",
+    "description": "Simple API for uploading files to Gofile.io",
     "license": "ISC",
     "author": "LeGrizzly",
     "type": "module",
@@ -13,11 +13,11 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/xalsie/PixelDrain.git"
+        "url": "git+https://github.com/xalsie/gofile.git"
     },
-    "homepage": "https://github.com/xalsie/PixelDrain#readme",
+    "homepage": "https://github.com/xalsie/gofile#readme",
     "bugs": {
-        "url": "https://github.com/xalsie/PixelDrain/issues"
+        "url": "https://github.com/xalsie/gofile/issues"
     },
     "keywords": [
         "gofile",
@@ -29,7 +29,7 @@
         "build": "tsc",
         "start": "node dist/index.js",
         "dev": "tsc --watch",
-        "test": "npm run build && node dist/test/test.js",
+        "test": "npm run build && node dist/tests/test.js",
         "lint": "eslint .",
         "prettier": "prettier . --write"
     },
