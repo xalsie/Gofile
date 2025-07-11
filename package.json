@@ -6,12 +6,30 @@
     "author": "LeGrizzly",
     "type": "module",
     "main": "dist/index.js",
+    "files": [
+        "dist/**/*",
+        "README.md",
+        "package.json"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xalsie/PixelDrain.git"
+    },
+    "homepage": "https://github.com/xalsie/PixelDrain#readme",
+    "bugs": {
+        "url": "https://github.com/xalsie/PixelDrain/issues"
+    },
+    "keywords": [
+        "gofile",
+        "upload",
+        "api",
+        "file-upload"
+    ],
     "scripts": {
         "build": "tsc",
         "start": "node dist/index.js",
         "dev": "tsc --watch",
-        "test": "npm run build && node dist/test.js",
-        "example": "npm run build && node dist/example.js",
+        "test": "npm run build && node dist/test/test.js",
         "lint": "eslint .",
         "prettier": "prettier . --write"
     },
@@ -28,5 +46,8 @@
         "prettier": "^3.6.2",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.36.0"
+    },
+    "engines": {
+        "node": ">=24.0.0"
     }
 }

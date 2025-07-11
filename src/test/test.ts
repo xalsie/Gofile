@@ -1,4 +1,4 @@
-import { GofileAPI, type FileToUpload } from "./index.js";
+import { GofileAPI, type FileToUpload } from "../index.js";
 
 async function progressExample() {
     console.log("Gofile Upload with Progress Example");
